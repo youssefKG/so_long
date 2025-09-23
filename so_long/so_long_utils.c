@@ -30,6 +30,19 @@ void ft_scale_img(s_img *tar_img, s_img *orig_img) {
   }
 }
 
+void ft_render_img(void *mlx, void *wind, s_img *img, char *file_name, int x,
+                   int y) {
+  s_img orig_img;
+
+  orig_img.img =
+      mlx_xpm_file_to_image(mlx, file_name, &orig_img.width, &orig_img.height);
+  orig_img.data = mlx_get_data_addr(orig_img.img, &orig_img.bpp,
+                                    &orig_img.size_line, &orig_img.endiant);
+  ft_scale_img(img, &orig_img);
+  mlx_put_image_to_window(mlx, wind, img->img, x, y);
+  mlx_destroy_image(mlx, orig_img.img);
+}
+
 void ft_init_img(void *mlx, s_img *img, int width, int height) {
   img->img = mlx_new_image(mlx, width, height);
   img->data =
