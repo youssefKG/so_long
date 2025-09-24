@@ -7,17 +7,29 @@
 typedef struct Img {
   void *img;
   char *data;
-  int size_line;
-  int bpp;
   int width;
   int height;
+  int size_line;
+  int bpp;
   int endiant;
   char *path;
 } s_img;
 
+typedef struct Win {
+  void *win;
+  int width;
+  int height;
+} s_win;
+
 typedef struct Player {
   s_img img;
 } s_player;
+
+typedef struct Map {
+  char **map;
+  int cols;
+  int rows;
+} s_map;
 
 
 // void ft_draw_box(void *wind, int x, int y, int size, int color);

@@ -9,20 +9,23 @@
 
 void *mlx;
 
+void ft_printmap(char **s, int cols, int rows);
 int main() {
-  void *win;
-  s_img imgs[20];
-  int i;
-  int start;
+  s_win win;
+  s_img player;
+  s_img *collectibles;
+  s_map map;
 
+  map.map = ft_parse_map("./maps/map2.per", &map.rows, &map.cols);
+  ft_printmap(map.map, map.cols, map.rows);
   mlx = mlx_init();
   printf(" => Connection...\n");
   if (!mlx) {
     printf("connection failed!\n");
     return 0;
   }
-  win = mlx_new_window(mlx, WIN1_SX, WIN1_SY, TITLE);
-  ft_render_map(mlx, win, "./maps/map2.per");
+  win.win = mlx_new_window(mlx, WIN1_SX, WIN1_SY, TITLE);
+  ft_render_map(mlx, win.win, map);
   while (1) {
     sleep(1);
   }
