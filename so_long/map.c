@@ -20,6 +20,7 @@ char **ft_parse_map(char *path, int *col, int *row) {
   int row_num;
   char **parsed_map;
   char *line;
+  char *tem;
   int i;
   int j;
 
@@ -30,20 +31,24 @@ char **ft_parse_map(char *path, int *col, int *row) {
   while (line[col_num] && line[col_num] != '\n') {
     col_num++;
   }
-  free(line);
   while (line) {
+    free(line);
+    printf("%s\n", line);
     row_num++;
     line = get_next_line(map_fd);
-    free(line);
   }
+  free(line);
+  printf("col: %d\n", col_num);
+  printf("col: %d\n", row_num);
+
   parsed_map = (char **)malloc(sizeof(char *) * row_num);
   i = 0;
   map_fd = open(path, O_RDONLY);
   while (i < row_num) {
-    parsed_map[i] = (char *)malloc(sizeof(char) * row_num);
+    parsed_map[i] = (char *)malloc(sizeof(char) * col_num);
     j = 0;
     line = get_next_line(map_fd);
-    while (j < row_num) {
+    while (j < col_num) {
       parsed_map[i][j] = line[j];
       j++;
     }
@@ -55,7 +60,7 @@ char **ft_parse_map(char *path, int *col, int *row) {
   return parsed_map;
 }
 
-void ft_render_map(void *mlx, void *win, s_map map) {
+void ft_render_map(void *mlx, s_win *win, s_map map) {
   int i;
   int j;
   int width;
@@ -65,24 +70,43 @@ void ft_render_map(void *mlx, void *win, s_map map) {
   i = 0;
   y = 0;
   while (i < map.rows) {
-    width = WIN1_SX / map.cols;
-    height = WIN1_SY / map.rows;
+    width = win->width / map.cols;
+    height = win->height / map.rows;
     j = 0;
     while (j < map.cols) {
       if (map.map[i][j] == '0')
-        ft_render_empty_space(mlx, win, width, width, width * j, y);
+        ft_render_empty_space(mlx, win->win, width, width, width * j, y);
       else if (map.map[i][j] == '1')
-        ft_render_wall(mlx, win, width, width, width * j, y);
+        ft_render_wall(mlx, win->win, width, width, width * j, y);
       else if (map.map[i][j] == 'C')
-        ft_render_collectible(mlx, win, width, width, width * j, y);
+        ft_render_collectible(mlx, win->win, width, width, width * j, y);
       else if (map.map[i][j] == 'E')
-        ft_render_exit(mlx, win, width, width, width * j, y);
+        ft_render_exit(mlx, win->win, width, width, width * j, y);
       else if (map.map[i][j] == 'P')
-        ft_render_player(mlx, win, width, width, width * j, y);
+        ft_render_player(mlx, win->win, width, width, width * j, y);
       j++;
     }
     i++;
     y += width;
+  }
+}
+
+void ft_set_palyer_start_position(s_player *player, s_map map) {
+  int i;
+  int j;
+
+  i = 0;
+  while (i < map.cols) {
+    j = 0;
+    while (j < map.rows) {
+      if (map.map[i][j] == 'P') {
+        player->y = i;
+        player->y = j;
+        return;
+      }
+      j++;
+    }
+    i++;
   }
 }
 

@@ -68,8 +68,8 @@ void ft_draw_box(void *mlx, void *win, int x, int y, int size, int color) {
   }
 }
 
-void ft_init_window(s_win *window, s_map map) {
-  window->width = map.rows * 40;
-  window->height = map.cols * 40;
-  // wiwdow ->win = mlx_new_image(window->win, , int)
+void ft_init_window(void *mlx, s_win *window, s_map map, char *title) {
+  window->width = map.cols * 50;
+  window->height = map.rows * 50;
+  window->win = mlx_new_window(mlx, window->width, window->height, title);
 }
