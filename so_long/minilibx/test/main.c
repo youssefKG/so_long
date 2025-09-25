@@ -1,3 +1,4 @@
+
 #include	"mlx.h"
 #include	"mlx_int.h"
 
@@ -137,7 +138,7 @@ int	main()
 	 ((t_img *)im1)->type);
 
   printf(" => Fill Image1 ...");
-  color_map_2(data1, bpp1, sl1, IM1_SX, IM1_SY, endian1, 1);
+  color_map_2(data1,bpp1,sl1,IM1_SX,IM1_SY,endian1, 1);
   printf("OK (pixmap : %d)\n",(int)((t_img *)im1)->pix);
 
   printf(" => Put Image1 ...");
@@ -237,6 +238,7 @@ int	color_map_1(void *win,int w,int h)
         }
     }
 }
+
 
 int	color_map_2(unsigned char *data,int bpp,int sl,int w,int h,int endian, int type)
 {

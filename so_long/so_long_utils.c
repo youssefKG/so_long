@@ -1,5 +1,5 @@
-#include "../mlx.h"
-#include "../mlx_int.h"
+#include "./minilibx/mlx.h"
+#include "./minilibx/mlx_int.h"
 #include "so_long.h"
 
 void ft_scale_img(s_img *tar_img, s_img *orig_img) {
