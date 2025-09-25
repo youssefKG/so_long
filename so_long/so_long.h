@@ -4,6 +4,12 @@
 #define WIN1_SX  700
 #define WIN1_SY 700
 
+#define DOWN 0
+#define UP 1
+#define RIGHT 2
+#define LEFT 3
+
+
 typedef struct Img {
   void *img;
   char *data;
@@ -31,6 +37,7 @@ typedef struct Map {
 typedef struct Player {
   int x;
   int y;
+  int direction;
 } s_player;
 
 

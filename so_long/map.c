@@ -32,14 +32,10 @@ char **ft_parse_map(char *path, int *col, int *row) {
     col_num++;
   }
   while (line) {
-    free(line);
-    printf("%s\n", line);
     row_num++;
     line = get_next_line(map_fd);
   }
   free(line);
-  printf("col: %d\n", col_num);
-  printf("col: %d\n", row_num);
 
   parsed_map = (char **)malloc(sizeof(char *) * row_num);
   i = 0;
@@ -91,7 +87,7 @@ void ft_render_map(void *mlx, s_win *win, s_map map) {
   }
 }
 
-void ft_set_palyer_start_position(s_player *player, s_map map) {
+void ft_set_player_start_position(s_player *player, s_map map) {
   int i;
   int j;
 
@@ -101,7 +97,7 @@ void ft_set_palyer_start_position(s_player *player, s_map map) {
     while (j < map.rows) {
       if (map.map[i][j] == 'P') {
         player->y = i;
-        player->y = j;
+        player->x = j;
         return;
       }
       j++;
